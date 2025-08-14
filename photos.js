@@ -1,7 +1,4 @@
-<!-- ======================================================================
-/photos.js
-Sample data using Unsplash (replace with your own later)
-====================================================================== -->
+
 <script>
   // why: keep content editable without code changes
   const PROJECTS = [
