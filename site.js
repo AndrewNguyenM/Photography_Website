@@ -1,7 +1,4 @@
-<!-- ======================================================================
-/site.js
-Small shared helpers and header behavior
-====================================================================== -->
+
 <script>
   // Footer year
   const yEl = document.getElementById('y'); if (yEl) yEl.textContent = new Date().getFullYear();
