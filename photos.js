@@ -36,3 +36,19 @@ Sample data using Unsplash (replace with your own later)
     ]
   };
 </script>
+
+// /photos.js
+window.PROJECTS = [
+  { slug:"automotive", title:"Automotive", blurb:"Cars & track.", cover:"images/automotive/car01-lg.jpg" },
+  { slug:"lifestyle", title:"Lifestyle", blurb:"People & places.", cover:"images/lifestyle/life01-lg.jpg" }
+];
+
+window.PHOTOS = {
+  automotive: [
+    { srcSmall:"images/automotive/gt3rs.jpg", srcLarge:"images/automotive/gt3rs.jpg", w:2000, h:1333, title:"Rolling", caption:"" },
+    { srcSmall:"images/automotive/gt3rs.jpg", srcLarge:"images/automotive/gt3rs.jpg", w:2000, h:1333, title:"Paddock", caption:"" }
+  ],
+  lifestyle: [
+    { srcSmall:"images/lifestyle/gt3rs.jpg", srcLarge:"images/lifestyle/gt3rs.jpg", w:2000, h:1333, title:"Sunlit", caption:"" }
+  ]
+};
