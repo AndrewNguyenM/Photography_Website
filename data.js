@@ -19,7 +19,15 @@ window.PHOTOS = {
     w: 1259, h: 2000,
     title: "LEGO GT3 RS — rear",
     caption: ""
+  },
+  {
+    srcSmall: "images/automobile/gt3rs/topdown-sm.jpg",
+    srcLarge: "images/automobile/gt3rs/topdown-lg.jpg",
+    w: 1259, h: 2000,
+    title: "LEGO GT3 RS — topdown",
+    caption: ""
   }
+
   ],
   "ford-gt": [
       {
