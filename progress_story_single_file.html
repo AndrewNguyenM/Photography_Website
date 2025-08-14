@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Progress Story</title>
+  <meta name="description" content="An interactive, photo‑driven timeline, gallery, and story mode." />
+  <style>
+    :root {
+      --bg: #ffffff; --fg: #111; --muted: #666; --border: #e5e7eb; --accent: #0f172a;
+      --chip: #f3f4f6; --shadow: 0 10px 24px rgba(0,0,0,.07);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial; background: var(--bg); color: var(--fg); }
+    .container { max-width: 1120px; margin: 0 auto; padding: 16px; }
+    header.sticky { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(180%) blur(8px); background: rgba(255,255,255,.7); border-bottom: 1px solid var(--border); }
+    h1 { font-size: 20px; margin: 0; font-weight: 700; }
+    .row { display: flex; gap: 12px; align-items: center; }
+    .grow { flex: 1; }
+    .btn { appearance: none; border: 1px solid var(--border); background: #fff; color: #111; padding: 10px 14px; border-radius: 14px; cursor: pointer; }
+    .btn.primary { background: #000; color: #fff; border-color: #000; }
+    .btn.icon { display: inline-flex; align-items: center; gap: 8px; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    input[type="text"], input[type="date"], select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+    textarea { resize: vertical; }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+    .tabs { display: flex; gap: 8px; }
+    .tab { border: 1px solid var(--border); padding: 8px 12px; border-radius: 999px; background: #fff; cursor: pointer; }
+    .tab.active { background: #000; color: #fff; border-color: #000; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--chip); padding: 6px 10px; border-radius: 999px; font-size: 12px; color: #222; }
+
+    .grid { display: grid; grid-template-columns: repeat(1, minmax(0,1fr)); gap: 16px; }
+    @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (min-width: 960px) { .grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+    .card { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+    .card img { width: 100%; height: 256px; object-fit: cover; display: block; }
+    .card .p { padding: 12px; }
+    .muted { color: var(--muted); font-size: 14px; }
+
+    .timeline { position: relative; }
+    .timeline::before { content: ""; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .t-item { display: grid; grid-template-columns: 56px 1fr; gap: 12px; margin-bottom: 20px; }
+    .t-dot { width: 12px; height: 12px; border-radius: 999px; background: #000; margin-top: 6px; }
+    .t-img { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); cursor: pointer; }
+    .t-img img { width: 100%; height: auto; display: block; }
+
+    .story { display: grid; gap: 24px; }
+    @media (min-width: 900px) { .story { grid-template-columns: 1fr 1fr; align-items: center; } }
+    .story img { width: 100%; border-radius: 16px; box-shadow: var(--shadow); }
+
+    .dropzone { border: 2px dashed var(--border); border-radius: 16px; padding: 32px; text-align: center; cursor: pointer; }
+    .center { text-align: center; }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); color: #fff; display: none; align-items: center; justify-content: center; z-index: 100; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-height: 70vh; max-width: 80vw; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+    .lb-controls { position: absolute; top: 16px; right: 16px; display: flex; gap: 8px; }
+    .lb-btn { background: rgba(255,255,255,.12); color: #fff; border: 0; padding: 10px 12px; border-radius: 10px; cursor: pointer; }
+    .lb-nav { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
+    .lb-nav button { pointer-events: auto; background: rgba(255,255,255,.12); color: #fff; border: 0; padding: 12px; border-radius: 999px; cursor: pointer; margin: 0 20px; }
+
+    .drawer { position: fixed; top: 0; right: 0; height: 100%; width: min(440px, 100%); background: #fff; box-shadow: var(--shadow); transform: translateX(100%); transition: transform .25s ease; z-index: 60; overflow: auto; }
+    .drawer.open { transform: translateX(0); }
+    .drawer .head { position: sticky; top: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .drawer .body { padding: 16px; }
+
+    footer { text-align: center; font-size: 14px; color: var(--muted); padding: 40px 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+  </style>
+</head>
+<body>
+  <header class="sticky">
+    <div class="container row">
+      <div style="display:flex;align-items:center;gap:10px">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#111"/><path d="M6 17c1.5-5 6-9 10-11" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="8" r="1.4" fill="#fff"/></svg>
+        <div>
+          <h1>My Progress Story</h1>
+          <div class="muted"><span id="photoCount">0</span> photos • interactive timeline & gallery</div>
+        </div>
+      </div>
+      <div class="grow"></div>
+      <button class="btn" id="helpBtn">Help</button>
+      <button class="btn" id="importBtn">Import</button>
+      <button class="btn primary" id="exportBtn">Export</button>
+    </div>
+  </header>
+
+  <main class="container" style="display:grid; gap: 16px;">
+    <div class="row" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div class="tabs" role="tablist" aria-label="View modes">
+        <button class="tab active" data-mode="timeline" role="tab" aria-selected="true">Timeline</button>
+        <button class="tab" data-mode="gallery" role="tab" aria-selected="false">Gallery</button>
+        <button class="tab" data-mode="story" role="tab" aria-selected="false">Story Mode</button>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary icon" id="addBtn">➕ <span>Add Photos</span></button>
+        <label class="sr-only" for="q">Search</label>
+        <input id="q" type="text" placeholder="Search title/caption…" />
+        <select id="tagFilter"><option value="">All tags</option></select>
+        <select id="yearFilter"><option value="">All years</option></select>
+        <button class="btn" id="sortBtn" aria-pressed="true">Oldest → Newest</button>
+      </div>
+    </div>
+
+    <div id="content"></div>
+
+    <div id="dropzone" class="dropzone">
+      <div class="muted">Drag & drop photos here, or click anywhere in this box to select files</div>
+      <input id="fileInput" type="file" accept="image/*" multiple class="sr-only" />
+    </div>
+  </main>
+
+  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog">
+    <div class="lb-controls">
+      <button class="lb-btn" id="closeLb">✕</button>
+    </div>
+    <img id="lbImg" alt="Photo" />
+    <div class="lb-nav">
+      <button id="prevLb" aria-label="Previous">◀</button>
+      <button id="nextLb" aria-label="Next">▶</button>
+    </div>
+    <div style="position:absolute; bottom:24px; left:50%; transform:translateX(-50%); max-width: 80vw; text-align:center;">
+      <div id="lbTitle" style="font-weight:700"></div>
+      <div id="lbMeta" style="opacity:.85; font-size:14px; margin-top:6px"></div>
+      <div id="lbCaption" style="margin-top:6px"></div>
+    </div>
+  </div>
+
+  <aside id="editor" class="drawer" aria-labelledby="editorTitle">
+    <div class="head">
+      <div id="editorTitle">Edit details</div>
+      <div class="row">
+        <button class="btn" id="deleteBtn" title="Delete">🗑</button>
+        <button class="btn primary" id="saveBtn">Save</button>
+      </div>
+    </div>
+    <div class="body">
+      <div style="display:grid; gap:12px;">
+        <img id="editPreview" alt="preview" style="width:100%; border-radius:12px; border:1px solid var(--border);" />
+        <label>Title<input id="titleInput" type="text" /></label>
+        <label>Caption<textarea id="captionInput" rows="3"></textarea></label>
+        <label>Date<input id="dateInput" type="date" /></label>
+        <label>Tags (comma separated)<input id="tagsInput" type="text" /></label>
+        <label style="display:flex; align-items:center; gap:8px;">
+          <input id="milestoneInput" type="checkbox" /> Mark as milestone
+        </label>
+      </div>
+    </div>
+  </aside>
+
+  <dialog id="help" style="max-width: 720px; border:1px solid var(--border); border-radius: 12px;">
+    <form method="dialog" style="margin:0; padding:0;">
+      <div style="padding:16px 16px 0 16px; display:flex; align-items:center; justify-content:space-between;">
+        <strong>How to use</strong>
+        <button class="btn" value="cancel">Close</button>
+      </div>
+      <div style="padding: 12px 16px 16px 16px;">
+        <ul>
+          <li>Add photos with <em>Add Photos</em> or drag & drop. Images are compressed and saved to your browser.</li>
+          <li>Edit title, caption, date, tags, and mark milestones.</li>
+          <li>Switch between Timeline, Gallery, and Story Mode. Use search, tag/year filters, and sort.</li>
+          <li>Click a photo to open the lightbox (←/→ to navigate, Esc to close).</li>
+          <li>Use Export/Import JSON to back up or move your story.</li>
+        </ul>
+        <p class="muted">Note: Storing many large photos in localStorage can hit browser limits. This app compresses uploads to help.</p>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+  // --- State & utils ---
+  const LS_KEY = 'progress_story_items_v1_single';
+  const state = {
+    items: [],
+    mode: 'timeline',
+    search: '',
+    tagFilter: '',
+    yearFilter: '',
+    sortAsc: true,
+    lightboxIndex: -1,
+    editingId: null,
+  };
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+  const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const fmtDate = (iso) => iso ? new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(iso)) : 'Undated';
+
+  function load() { try { const raw = localStorage.getItem(LS_KEY); state.items = raw ? JSON.parse(raw) : []; } catch { state.items = []; } }
+  function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(state.items)); } catch (e) { alert('Save failed: ' + e.message); } }
+
+  function deriveTags(items) { const s = new Set(); items.forEach(it => (it.tags||[]).forEach(t=>s.add(t))); return Array.from(s).sort(); }
+  function deriveYears(items) { const s = new Set(); items.forEach(it => { if (it.dateISO) s.add(new Date(it.dateISO).getFullYear()); }); return Array.from(s).sort((a,b)=>b-a); }
+
+  function filteredItems() {
+    const arr = [...state.items].sort((a,b) => {
+      const da = a.dateISO ? new Date(a.dateISO).getTime() : 0;
+      const db = b.dateISO ? new Date(b.dateISO).getTime() : 0;
+      return state.sortAsc ? da - db : db - da;
+    });
+    const q = state.search.toLowerCase();
+    return arr.filter(it => {
+      const okTag = state.tagFilter ? (it.tags||[]).includes(state.tagFilter) : true;
+      const okYear = state.yearFilter ? (it.dateISO && String(new Date(it.dateISO).getFullYear())===state.yearFilter) : true;
+      const okSearch = q ? (it.title||'').toLowerCase().includes(q) || (it.caption||'').toLowerCase().includes(q) : true;
+      return okTag && okYear && okSearch;
+    });
+  }
+
+  // --- Image handling ---
+  async function fileToDataUrlCompressed(file, maxW=1600, quality=.85) {
+    // why: store compressed dataURL to fit localStorage limits
+    const dataURL = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(file); });
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = dataURL; });
+    const scale = Math.min(1, maxW / img.width);
+    const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+    const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
+    // Prefer JPEG; fall back to PNG if transparent (simple check by reading a corner pixel)
+    let mime = 'image/jpeg';
+    try { const p = ctx.getImageData(1,1,1,1).data; if (p[3] < 255) mime = 'image/png'; } catch {}
+    return canvas.toDataURL(mime, quality);
+  }
+
+  async function handleFiles(files) {
+    const imgs = [];
+    for (const f of files) {
+      if (!f.type.startsWith('image/')) continue;
+      const src = await fileToDataUrlCompressed(f);
+      imgs.push({ id: uid(), dateISO: new Date().toISOString(), title: f.name.replace(/\.[^.]+$/, ''), caption: '', tags: [], src, milestone: false });
+    }
+    state.items.push(...imgs); save(); render();
+  }
+
+  // --- Rendering ---
+  function render() {
+    $('#photoCount').textContent = String(state.items.length);
+    // tabs
+    $$('.tab').forEach(t => { const on = t.dataset.mode===state.mode; t.classList.toggle('active', on); t.setAttribute('aria-selected', on); });
+    // filters
+    const tags = deriveTags(state.items);
+    const years = deriveYears(state.items);
+    const tagSel = $('#tagFilter'); const yearSel = $('#yearFilter');
+    const tagVal = tagSel.value; const yearVal = yearSel.value;
+    tagSel.innerHTML = '<option value="">All tags</option>' + tags.map(t=>`<option ${t===tagVal?'selected':''}>${t}</option>`).join('');
+    yearSel.innerHTML = '<option value="">All years</option>' + years.map(y=>`<option ${String(y)===yearVal?'selected':''} value="${y}">${y}</option>`).join('');
+
+    $('#sortBtn').textContent = state.sortAsc ? 'Oldest → Newest' : 'Newest → Oldest';
+
+    const items = filteredItems();
+    const el = $('#content');
+    el.innerHTML = '';
+
+    if (state.mode === 'gallery') {
+      const grid = document.createElement('div'); grid.className = 'grid';
+      for (const it of items) grid.appendChild(card(it));
+      el.appendChild(grid);
+    } else if (state.mode === 'timeline') {
+      const wrap = document.createElement('div'); wrap.className = 'timeline';
+      for (const it of items) wrap.appendChild(timelineItem(it));
+      el.appendChild(wrap);
+    } else if (state.mode === 'story') {
+      const wrap = document.createElement('div'); wrap.className = 'story';
+      for (const it of items) wrap.appendChild(storyItem(it));
+      el.appendChild(wrap);
+    }
+
+    // Empty state
+    if (!state.items.length) {
+      const box = document.createElement('div'); box.className = 'card';
+      box.innerHTML = `<div class="p center"><div style="font-weight:600;">Start your story</div><div class="muted">Upload photos to build your interactive timeline.</div><div style="margin-top:10px"><button class="btn primary" id="startAdd">Add Photos</button></div></div>`;
+      el.appendChild(box);
+      $('#startAdd').onclick = ()=> $('#fileInput').click();
+    }
+  }
+
+  function card(it) {
+    const c = document.createElement('div'); c.className = 'card';
+    c.innerHTML = `
+      <div class="t-img"><img alt="" loading="lazy"></div>
+      <div class="p">
+        <div style="font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${escapeHtml(it.title||'Untitled')}">${escapeHtml(it.title||'Untitled')}</div>
+        <div class="muted" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${escapeHtml(it.caption||'')}">${escapeHtml(it.caption||'')}</div>
+        <div class="muted" style="font-size:12px; margin-top:6px;">${fmtDate(it.dateISO)}</div>
+        <div class="row" style="gap:8px; margin-top:8px;">
+          <button class="btn" data-action="view">View</button>
+          <button class="btn" data-action="edit">Edit</button>
+        </div>
+      </div>`;
+    $('img', c).src = it.src;
+    $('.t-img', c).onclick = () => openLightboxById(it.id);
+    $('[data-action="view"]', c).onclick = () => openLightboxById(it.id);
+    $('[data-action="edit"]', c).onclick = () => openEditor(it.id);
+    return c;
+  }
+
+  function timelineItem(it) {
+    const d = document.createElement('div'); d.className = 't-item';
+    d.innerHTML = `
+      <div style="position:relative">
+        <div class="t-dot"></div>
+      </div>
+      <div>
+        <div class="chip">${fmtDate(it.dateISO)} ${it.milestone ? '<span style="margin-left:8px; font-size:11px; background:#111; color:#fff; padding:2px 6px; border-radius:999px;">Milestone</span>' : ''}</div>
+        <div style="font-size:20px; font-weight:700; margin-top:6px;">${escapeHtml(it.title||'Untitled')}</div>
+        ${it.caption ? `<div class="muted" style="margin-top:4px;">${escapeHtml(it.caption)}</div>` : ''}
+        <div style="margin:8px 0; display:flex; gap:6px; flex-wrap:wrap;">${(it.tags||[]).map(t=>`<span class="chip">#${escapeHtml(t)}</span>`).join('')}</div>
+        <div class="t-img"><img alt=""></div>
+        <div class="row" style="gap:8px; margin-top:8px;">
+          <button class="btn" data-action="view">View</button>
+          <button class="btn" data-action="edit">Edit</button>
+        </div>
+      </div>`;
+    $('img', d).src = it.src;
+    $('.t-img', d).onclick = () => openLightboxById(it.id);
+    $('[data-action="view"]', d).onclick = () => openLightboxById(it.id);
+    $('[data-action="edit"]', d).onclick = () => openEditor(it.id);
+    return d;
+  }
+
+  function storyItem(it) {
+    const wrap = document.createElement('div'); wrap.style.display='contents';
+    const img = document.createElement('img'); img.src = it.src; img.alt = ''; img.style.cursor='pointer'; img.onclick = () => openLightboxById(it.id);
+    const text = document.createElement('div');
+    text.innerHTML = `
+      <div class="chip">${fmtDate(it.dateISO)}</div>
+      <div style="font-size:24px; font-weight:700; margin-top:8px;">${escapeHtml(it.title||'Untitled')}</div>
+      ${it.caption ? `<div style="margin-top:8px;">${escapeHtml(it.caption)}</div>` : ''}
+      ${(it.tags||[]).length ? `<div class="muted" style="margin-top:8px;">${(it.tags||[]).map(t=>`#${escapeHtml(t)}`).join(' ')}</div>`:''}
+      <div style="margin-top:12px;"><button class="btn" data-action="open">Open photo</button></div>`;
+    $('[data-action="open"]', text)?.addEventListener('click', ()=>openLightboxById(it.id));
+
+    const row = document.createElement('div'); row.className='story';
+    row.appendChild(img); row.appendChild(text);
+    return row;
+  }
+
+  // --- Lightbox ---
+  function openLightboxById(id) { const idx = filteredItems().findIndex(it=>it.id===id); if (idx>=0) openLightbox(idx); }
+  function openLightbox(index) {
+    state.lightboxIndex = index;
+    updateLightbox();
+    $('#lightbox').classList.add('open');
+  }
+  function updateLightbox() {
+    const items = filteredItems();
+    const it = items[state.lightboxIndex]; if (!it) return;
+    $('#lbImg').src = it.src;
+    $('#lbTitle').textContent = it.title || 'Untitled';
+    $('#lbMeta').textContent = `${fmtDate(it.dateISO)} • ${(it.tags||[]).join(', ')}`;
+    $('#lbCaption').textContent = it.caption || '';
+  }
+  function closeLightbox() { $('#lightbox').classList.remove('open'); state.lightboxIndex = -1; }
+
+  // --- Editor ---
+  function openEditor(id) {
+    state.editingId = id;
+    const it = state.items.find(x=>x.id===id); if (!it) return;
+    $('#editPreview').src = it.src;
+    $('#titleInput').value = it.title||'';
+    $('#captionInput').value = it.caption||'';
+    $('#dateInput').value = it.dateISO ? it.dateISO.slice(0,10) : '';
+    $('#tagsInput').value = (it.tags||[]).join(', ');
+    $('#milestoneInput').checked = !!it.milestone;
+    $('#editor').classList.add('open');
+  }
+  function closeEditor() { $('#editor').classList.remove('open'); state.editingId = null; }
+
+  // --- Helpers ---
+  function escapeHtml(s='') { return s.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+
+  // --- Wire up ---
+  function init() {
+    load();
+    render();
+
+    // Mode tabs
+    $$('.tab').forEach(t => t.addEventListener('click', () => { state.mode = t.dataset.mode; render(); }));
+
+    // Toolbar
+    $('#addBtn').onclick = () => $('#fileInput').click();
+    $('#q').addEventListener('input', (e)=> { state.search = e.target.value; render(); });
+    $('#tagFilter').addEventListener('change', (e)=> { state.tagFilter = e.target.value; render(); });
+    $('#yearFilter').addEventListener('change', (e)=> { state.yearFilter = e.target.value; render(); });
+    $('#sortBtn').onclick = () => { state.sortAsc = !state.sortAsc; render(); };
+
+    // Dropzone & input
+    const dz = $('#dropzone');
+    dz.addEventListener('click', ()=> $('#fileInput').click());
+    dz.addEventListener('dragover', (e)=> { e.preventDefault(); dz.style.background = '#fafafa'; });
+    dz.addEventListener('dragleave', ()=> { dz.style.background=''; });
+    dz.addEventListener('drop', async (e)=> { e.preventDefault(); dz.style.background=''; await handleFiles(e.dataTransfer.files); });
+    $('#fileInput').addEventListener('change', async (e)=> { await handleFiles(e.target.files); e.target.value = ''; });
+
+    // Import / Export / Help
+    $('#exportBtn').onclick = () => {
+      const blob = new Blob([JSON.stringify(state.items, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'progress-story.json'; a.click(); URL.revokeObjectURL(url);
+    };
+    $('#importBtn').onclick = () => {
+      const input = document.createElement('input'); input.type='file'; input.accept='application/json';
+      input.onchange = () => { const f = input.files?.[0]; if (!f) return; const fr = new FileReader(); fr.onload = () => { try { const data = JSON.parse(fr.result); if (Array.isArray(data)) { state.items = data; save(); render(); } } catch { alert('Invalid JSON'); } }; fr.readAsText(f); };
+      input.click();
+    };
+    const help = $('#help');
+    $('#helpBtn').onclick = () => help.showModal();
+    help.addEventListener('click', (e)=> { if (e.target === help) help.close(); });
+
+    // Lightbox
+    $('#closeLb').onclick = closeLightbox;
+    $('#prevLb').onclick = () => { const arr = filteredItems(); state.lightboxIndex = (state.lightboxIndex<=0?arr.length-1:state.lightboxIndex-1); updateLightbox(); };
+    $('#nextLb').onclick = () => { const arr = filteredItems(); state.lightboxIndex = (state.lightboxIndex>=arr.length-1?0:state.lightboxIndex+1); updateLightbox(); };
+    window.addEventListener('keydown', (e)=> {
+      if ($('#lightbox').classList.contains('open')) {
+        if (e.key==='Escape') closeLightbox();
+        if (e.key==='ArrowLeft') $('#prevLb').click();
+        if (e.key==='ArrowRight') $('#nextLb').click();
+      }
+    });
+
+    // Editor
+    $('#saveBtn').onclick = () => {
+      const it = state.items.find(x=>x.id===state.editingId); if (!it) return;
+      it.title = $('#titleInput').value.trim();
+      it.caption = $('#captionInput').value.trim();
+      const val = $('#dateInput').value; it.dateISO = val ? new Date(val).toISOString() : '';
+      it.tags = $('#tagsInput').value.split(',').map(s=>s.trim()).filter(Boolean);
+      it.milestone = $('#milestoneInput').checked;
+      save(); closeEditor(); render();
+    };
+    $('#deleteBtn').onclick = () => {
+      if (!confirm('Delete this photo?')) return;
+      state.items = state.items.filter(x=>x.id!==state.editingId);
+      save(); closeEditor(); render();
+    };
+    $('#editor').addEventListener('keydown', (e)=> { if (e.key==='Escape') closeEditor(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+<footer>Built with ♥ — photos stay in your browser.</footer>
+</html>
