@@ -1,5 +1,24 @@
-<!-- ======================= /assets/favicon.svg ======================== -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="24" fill="#111827"/>
-  <path d="M36 84l26-48 26 48" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<!-- /favicon.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>AN Racing Favicon</title>
+  <defs>
+    <!-- Subtle shadow so white letters read on red/black -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+  </defs>
+
+  <!-- Split background: black / red (racing vibe) -->
+  <rect width="64" height="64" fill="#0e0e0e"/>
+  <rect x="36" width="28" height="64" fill="#e10600"/>
+
+  <!-- Low-contrast diagonal band for motion feel (kept subtle for small sizes) -->
+  <polygon points="0,50 64,28 64,38 0,60" fill="#ffffff" opacity="0.10"/>
+
+  <!-- Monogram -->
+  <g filter="url(#shadow)" transform="translate(8,50) skewX(-12)">
+    <text x="0" y="0" font-family="Inter, Montserrat, Arial, Helvetica, sans-serif" font-weight="900" font-size="36" fill="#ffffff" letter-spacing="1">
+      AN
+    </text>
+  </g>
 </svg>
