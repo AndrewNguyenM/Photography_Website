@@ -6,8 +6,8 @@ window.COLLECTIONS = [
 ];
 
 window.PROJECTS = [
-  { slug:"porsche-911-gt3rs", collection:"automotive", title:"Porsche 911 GT3 RS", year:2025, location:"Michigan", blurb:"Night garage", cover:"images/automobile/gt3rs/03-lg.jpg" },
-  { slug:"toyota-supra-a90",  collection:"automotive", title:"2017 Ford GT)", year:2024, location:"Track day", blurb:"Paddock & golden hour.", cover:"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1600&auto=format&fit=crop" },
+  { slug:"porsche-911-gt3rs", collection:"automotive", title:"Porsche 911 GT3 RS", year:2025, location:"Garage", blurb:"Night garage", cover:"images/automobile/gt3rs/03-lg.jpg" },
+  { slug:"ford-gt",  collection:"automotive", title:"2017 Ford GT", year:2024, location:"Backyard", blurb:"Golden hour", cover:"images.automobile/ford_gt/wheel-lg.jpg" },
   { slug:"city-cafe",         collection:"lifestyle",  title:"City Café", year:2023, location:"River North", blurb:"Quiet morning light.", cover:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop" }
 ];
 
@@ -21,9 +21,14 @@ window.PHOTOS = {
     caption: ""
   }
   ],
-  "toyota-supra-a90": [
-    { srcSmall:"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800&auto=format&fit=crop", srcLarge:"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=2000&auto=format&fit=crop", w:1600, h:1067, title:"Paddock", caption:"" },
-    { srcSmall:"https://images.unsplash.com/photo-1441148345475-03a2e82f9719?q=80&w=800&auto=format&fit=crop", srcLarge:"https://images.unsplash.com/photo-1441148345475-03a2e82f9719?q=80&w=2000&auto=format&fit=crop", w:1600, h:1067, title:"Classic inspo", caption:"" }
+  "ford-gt": [
+      {
+    srcSmall: "images/automobile/ford_gt/wheel-sm.jpg",
+    srcLarge: "images/automobile/ford_gt/wheel-lg.jpg",
+    w: 1259, h: 2000,
+    title: "LEGO Ford GT - Side",
+    caption: ""
+  }
   ],
   "city-cafe": [
     { srcSmall:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop", srcLarge:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2000&auto=format&fit=crop", w:1600, h:1067, title:"Window light", caption:"" }
