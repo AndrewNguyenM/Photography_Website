@@ -48,6 +48,77 @@ window.PHOTOS = {
       meta: { date: "2024-08-22", location: "Backyard", camera:"Canon R6", lens:"RF 85mm f/2", shutter:"1/200s", aperture:"f/2.8", iso:"200", focalLength:"85mm" }
     }
   ],
+
+  "Honda S2000": [
+    {
+      scrSmall: "images/automobile/s2000/front.jpg",
+      srcLarge: "images/automobile/s2000/front.jpg",
+      w: 1259, h: 2000,
+      title: "Honda S2000",
+      story: "Kaushik's 2001 Honda S2000",
+      meta: {
+        date: "2025-08-16",
+        location: "Garage",
+        camera: "Canon T7",
+        lens: "RF 50mm f/1.8",
+        shutter: "1/80s",
+        aperture: "f/2.0",
+        iso: "800",
+        focalLength: "50mm"
+      }
+    },
+        {
+      scrSmall: "images/automobile/s2000/badge.jpg",
+      srcLarge: "images/automobile/s2000/badge.jpg",
+      w: 1259, h: 2000,
+      title: "Honda S2000",
+      story: "2001 Honda S2000 - badge",
+      meta: {
+        date: "2025-08-16",
+        location: "Garage",
+        camera: "Canon T7",
+        lens: "RF 50mm f/1.8",
+        shutter: "1/80s",
+        aperture: "f/2.0",
+        iso: "800",
+        focalLength: "50mm"
+      }
+    },
+    {
+      scrSmall: "images/automobile/s2000/wheel.jpg",
+      srcLarge: "images/automobile/s2000/wheel.jpg",
+      w: 1259, h: 2000,
+      title: "Honda S2000",
+      story: "Honda S2000 - Front",
+      meta: {
+        date: "2025-08-16",
+        location: "Garage",
+        camera: "Canon T7",
+        lens: "RF 50mm f/1.8",
+        shutter: "1/80s",
+        aperture: "f/2.0",
+        iso: "800",
+        focalLength: "50mm"
+      }
+    },
+        {
+      scrSmall: "images/automobile/s2000/full.jpg",
+      srcLarge: "images/automobile/s2000/full.jpg",
+      w: 1259, h: 2000,
+      title: "Honda S2000",
+      story: "Honda S2000",
+      meta: {
+        date: "2025-08-16",
+        location: "Garage",
+        camera: "Canon T7",
+        lens: "RF 50mm f/1.8",
+        shutter: "1/80s",
+        aperture: "f/2.0",
+        iso: "800",
+        focalLength: "50mm"
+      }
+    },
+  ],
   "city-cafe": [
     {
       srcSmall:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
