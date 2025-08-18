@@ -9,7 +9,7 @@ window.COLLECTIONS = [
 window.PROJECTS = [
   { slug:"porsche-911-gt3rs", collection:"automotive", title:"Porsche 911 GT3 RS", year:2025, location:"Garage", blurb:"Night garage", cover:"images/automobile/gt3rs/03-lg.jpg" },
   { slug:"ford-gt",  collection:"automotive", title:"2017 Ford GT", year:2024, location:"Backyard", blurb:"Golden hour", cover:"images/automobile/ford_gt/wheel-lg.jpg" },
-  { slug:"2001-Honda-S2000", collection:"automotive", title:"Honda S2000", year:2025, location:"Troy", blurb:"S2000 - Kaushik Paladugu", cover:"images/automobile/s2000/full.jpg" },
+  { slug:"2001-Honda-S2000", collection:"automotive", title:"Honda S2000", year:2025, location:"Troy", blurb:"S2000 - Kaushik Paladugu", cover:"images/automobile/s2000/IMG_0090-2.jpg" },
   { slug:"city-cafe",         collection:"lifestyle",  title:"City Café", year:2023, location:"River North", blurb:"Quiet morning light.", cover:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop" }
 ];
 
