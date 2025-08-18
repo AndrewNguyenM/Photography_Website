@@ -55,8 +55,8 @@ window.PHOTOS = {
 
   "2001-Honda-S2000": [
     {
-      scrSmall: "images/automobile/s2000/front.jpg",
-      srcLarge: "images/automobile/s2000/front.jpg",
+      scrSmall: "images/automobile/s2000/IMG_0086-2.jpg",
+      srcLarge: "images/automobile/s2000/IMG_0086-2.jpg",
       w: 1259, h: 2000,
       title: "Honda S2000",
       story: "Kaushik's 2001 Honda S2000",
@@ -106,8 +106,8 @@ window.PHOTOS = {
       }
     },
         {
-      scrSmall: "images/automobile/s2000/full.jpg",
-      srcLarge: "images/automobile/s2000/full.jpg",
+      scrSmall: "images/automobile/s2000/IMG_0090-2.jpg",
+      srcLarge: "images/automobile/s2000/IMG_0090-2.jpg",
       w: 1259, h: 2000,
       title: "Honda S2000",
       story: "Honda S2000",
