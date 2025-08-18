@@ -53,7 +53,7 @@ window.PHOTOS = {
     }
   ],
 
-  "Honda S2000": [
+  "2001-Honda-S2000": [
     {
       scrSmall: "images/automobile/s2000/front.jpg",
       srcLarge: "images/automobile/s2000/front.jpg",
