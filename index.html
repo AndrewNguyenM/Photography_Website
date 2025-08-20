@@ -1,5 +1,5 @@
 <!-- ============================ /index.html ============================ -->
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -58,4 +58,72 @@
     `).join('');
   </script>
 </body>
+</html> -->
+
+<!-- /index.html (updated) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Andrew Nguyen — Automotive & Lifestyle Photography</title>
+  <meta name="description" content="Detroit-based automotive & lifestyle photographer. Collections, projects, and galleries." />
+  <!-- Open Graph / Twitter -->
+  <link rel="canonical" href="https://andrewnguyenm.github.io/Photography_Website/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrew Nguyen — Photography" />
+  <meta property="og:title" content="Andrew Nguyen — Automotive & Lifestyle Photography" />
+  <meta property="og:description" content="Selected collections, projects, and galleries." />
+  <meta property="og:image" content="images/automobile/gr86/gr86-lg.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="site.css" as="style" />
+  <link rel="stylesheet" href="site.css" />
+  <link rel="stylesheet" href="modern.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./">Andrew Nguyen</a>
+    <nav class="nav">
+      <a href="./category.html?c=automotive">Automotive</a>
+      <a href="./category.html?c=lifestyle">Lifestyle</a>
+      <a href="./timeline.html">Timeline</a>
+      <a href="./about.html">About</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <img src="images/automobile/gr86/gr86-lg.jpg" alt="GR86 — hero" />
+      <div class="hero-overlay">
+        <h1>Detroit-based automotive & lifestyle photographer</h1>
+        <p class="muted">Projects, stories, and selected collections.</p>
+      </div>
+    </section>
+
+    <section class="projects" id="collections"></section>
+  </main>
+
+  <footer class="site-footer">© <span id="y"></span> Andrew Nguyen</footer>
+
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+  <script src="modern.js"></script>
+  <script>
+    // Render collection tiles
+    const wrap = document.getElementById('collections');
+    wrap.innerHTML = (window.COLLECTIONS||[]).map(c => `
+      <a class="project-tile" href="category.html?c=${encodeURIComponent(c.slug)}" aria-label="${c.title}">
+        <div class="tile-media"><img src="${c.cover}" alt="${c.title}" loading="lazy" /></div>
+        <div class="tile-meta"><h2>${c.title}</h2><p>${c.blurb}</p></div>
+      </a>
+    `).join('');
+  </script>
+</body>
 </html>
+
+
