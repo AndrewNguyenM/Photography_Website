@@ -22,3 +22,47 @@
   root.addEventListener('pointerup',(e)=>{const dx=e.clientX-sx,dy=e.clientY-sy; if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)){ if(dx<0) show(index+1); else show(index-1);} });
   window.Lightbox={open,close};
 })();
+// === Web Share + basic focus handling ===
+(function(){
+  if(!window.Lightbox) return; // use existing implementation
+  const originalOpen = window.Lightbox.open;
+  const originalClose = window.Lightbox.close;
+  let prevFocus = null;
+
+  window.Lightbox.open = function(args){
+    prevFocus = document.activeElement;
+    originalOpen(args);
+    const dialog = document.querySelector('.lb-inner');
+    const closeBtn = document.querySelector('.lb-x');
+    if(closeBtn) closeBtn.focus();
+    // Add share button if supported
+    const controls = document.querySelector('.lb-controls');
+    if(controls && !document.getElementById('lb-share')){
+      const btn = document.createElement('button');
+      btn.className = 'lb-btn'; btn.id = 'lb-share'; btn.textContent = 'Share';
+      btn.addEventListener('click', ()=>{
+        try{
+          const img = document.getElementById('lb-img');
+          const title = document.getElementById('lb-title')?.textContent||'Photo';
+          const url = img?.src || location.href;
+          if(navigator.share){ navigator.share({title, url}).catch(()=>{}); }
+        }catch(e){}
+      });
+      controls.appendChild(btn);
+    }
+    // Focus trap (very light)
+    function onKey(e){
+      if(e.key!=='Tab') return; const f = dialog.querySelectorAll('a,button'); if(!f.length) return;
+      const first=f[0], last=f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+    dialog && dialog.addEventListener('keydown', onKey);
+  };
+
+  window.Lightbox.close = function(){
+    originalClose();
+    if(prevFocus && document.body.contains(prevFocus)) prevFocus.focus();
+  };
+})();
+
