@@ -11,7 +11,7 @@ window.PROJECTS = [
   { slug:"ford-gt",  collection:"automotive", title:"2017 Ford GT", year:2024, location:"Backyard", blurb:"Golden hour", cover:"images/automobile/ford_gt/wheel-lg.jpg" },
   { slug:"2001-honda-s2000", collection:"automotive", title:"Honda S2000", year:2025, location:"Troy", blurb:"S2000 - Kaushik Paladugu", cover:"images/automobile/s2000/IMG_0090-2.jpg" },
   { slug:"city-cafe",         collection:"lifestyle",  title:"City Café", year:2023, location:"River North", blurb:"Quiet morning light.", cover:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop" },
-  { slug:"yamaha-r3", colletion:"automotive", title:"Yamaha R3", year:2025, location:"Sterling Heights", blurb:"Yamaha R3 - Musanna Khan", cover:"images/automobile/Yamaha_R3/bike.jpg" }
+  { slug:"yamaha-r3", collection:"automotive", title:"Yamaha R3", year:2025, location:"Sterling Heights", blurb:"Yamaha R3 - Musanna Khan", cover:"images/automobile/Yamaha_R3/bike.jpg" }
 ];
 
 //INSIDE EACH WINDOWED BOX
@@ -124,13 +124,14 @@ window.PHOTOS = {
       }
     },
   ],
+
   "yamaha-r3": [
     {
       scrSmall: "images/automobile/Yamaha_R3/moose.jpg",
       srcLarge: "images/automobile/Yamaha_R3/moose.jpg",
       w: 1259, h: 2000,
       title: "Yamaha R3",
-      story: "Moose's Yamaha R3",
+      story: "Moose on Yamaha R3",
       meta: {
         date: "2025-08-24",
         location: "Park",
