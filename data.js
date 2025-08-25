@@ -10,7 +10,8 @@ window.PROJECTS = [
   { slug:"porsche-911-gt3rs", collection:"automotive", title:"Porsche 911 GT3 RS", year:2025, location:"Garage", blurb:"Night garage", cover:"images/automobile/gt3rs/03-lg.jpg" },
   { slug:"ford-gt",  collection:"automotive", title:"2017 Ford GT", year:2024, location:"Backyard", blurb:"Golden hour", cover:"images/automobile/ford_gt/wheel-lg.jpg" },
   { slug:"2001-honda-s2000", collection:"automotive", title:"Honda S2000", year:2025, location:"Troy", blurb:"S2000 - Kaushik Paladugu", cover:"images/automobile/s2000/IMG_0090-2.jpg" },
-  { slug:"city-cafe",         collection:"lifestyle",  title:"City Café", year:2023, location:"River North", blurb:"Quiet morning light.", cover:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop" }
+  { slug:"city-cafe",         collection:"lifestyle",  title:"City Café", year:2023, location:"River North", blurb:"Quiet morning light.", cover:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop" },
+  { slug:"yamaha-r3", colletion:"automotive", title:"Yamaha R3", year:2025, location:"Sterling Heights", blurb:"Yamaha R3 - Musanna Khan", cover:"images/automobile/Yamaha R3/bike.jpg" }
 ];
 
 //INSIDE EACH WINDOWED BOX
@@ -123,6 +124,43 @@ window.PHOTOS = {
       }
     },
   ],
+  "yamaha-r3": [
+    {
+      scrSmall: "images/automobile/Yamaha R3/moose.jpg",
+      srcLarge: "images/automobile/Yamaha R3/moose.jpg",
+      w: 1259, h: 2000,
+      title: "Yamaha R3",
+      story: "Moose's Yamaha R3",
+      meta: {
+        date: "2025-08-24",
+        location: "Park",
+        camera: "Canon T7",
+        lens: "RF 50mm f/1.8",
+        shutter: "1/80s",
+        aperture: "f/2.0",
+        iso: "800",
+        focalLength: "50mm"
+      }
+    },
+    {
+      scrSmall: "images/automobile/Yamaha R3/bike.jpg",
+      srcLarge: "images/automobile/Yamaha R3/bike.jpg",
+      w: 1259, h: 2000,
+      title: "Yamaha R3",
+      story: "Moose's Yamaha R3",
+      meta: {
+        date: "2025-08-24",
+        location: "Park",
+        camera: "Canon T7",
+        lens: "RF 50mm f/1.8",
+        shutter: "1/80s",
+        aperture: "f/2.0",
+        iso: "800",
+        focoalLength: "50mm"
+      }
+    },
+
+    ],
   "city-cafe": [
     {
       srcSmall:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
