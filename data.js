@@ -157,7 +157,7 @@ window.PHOTOS = {
         shutter: "1/80s",
         aperture: "f/2.0",
         iso: "800",
-        focoalLength: "50mm"
+        focalLength: "50mm"
       }
     },
 
