@@ -182,8 +182,8 @@ window.PHOTOS = {
       }
     },
     {
-      scrSmall: "images/automobile/gr86/rear-GR86",
-      srcLarge: "images/automobile/gr86/rear-GR86",
+      scrSmall: "images/automobile/gr86/rear-GR86.jpg",
+      srcLarge: "images/automobile/gr86/rear-GR86.jpg",
       w: 1259, h: 2000,
       title: "GR86",
       story: "GR86 Rear",
@@ -199,7 +199,7 @@ window.PHOTOS = {
       }
     },
   ],
-  
+
   "city-cafe": [
     {
       srcSmall:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
