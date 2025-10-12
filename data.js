@@ -200,7 +200,7 @@ window.PHOTOS = {
     },
     {
       scrSmall: "images/automobile/gr86/femboys.jpg",
-      srcLarge: "images/automobile/gr86/fremboys.jpg",
+      srcLarge: "images/automobile/gr86/femboys.jpg",
       w: 1259, h: 2000,
       title: "GR86",
       story: "GR8",
@@ -215,7 +215,6 @@ window.PHOTOS = {
         focalLength: "50mm"
       }
     },
-
 
   ],
 
