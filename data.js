@@ -198,11 +198,30 @@ window.PHOTOS = {
         focalLength: "50mm"
       }
     },
+    {
+      scrSmall: "images/automobile/gr86/femboys.jpg",
+      srcLarge: "images/automobile/gr86/fremboys.jpg",
+      w: 1259, h: 2000,
+      title: "GR86",
+      story: "GR8",
+      meta: {
+        date: "2025-10-11",
+        location: "Park",
+        camera: "Canon T7",
+        lens: "RF 50mm f/1.8",
+        shutter: "1/80s",
+        aperture: "f/2.0",
+        iso: "800",
+        focalLength: "50mm"
+      }
+    },
+
+
   ],
 
-  "city-cafe": [
+  "detroit": [
     {
-      srcSmall:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
+      srcSmall:"https://images.unsplash./-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
       srcLarge:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2000&auto=format&fit=crop",
       w:1600, h:1067, title:"Window light",
       story:"Quiet morning in River North. Window light only.",
