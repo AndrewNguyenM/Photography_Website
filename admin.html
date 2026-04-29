@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin — Photography Website</title>
+  <style>
+    :root{--bg:#0f1117;--surface:#1a1d27;--surface2:#242838;--border:#2d3148;--accent:#6366f1;--accent2:#818cf8;--text:#e2e8f0;--muted:#64748b;--danger:#ef4444;--success:#22c55e;--radius:10px;--font:Inter,system-ui,-apple-system,sans-serif}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+    .app{display:grid;grid-template-rows:56px 1fr;height:100vh}
+    .topbar{display:flex;align-items:center;gap:16px;padding:0 24px;background:var(--surface);border-bottom:1px solid var(--border)}
+    .topbar h1{font-size:16px;font-weight:700}
+    .topbar .badge{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--accent);color:#fff}
+    .body{display:grid;grid-template-columns:220px 1fr;overflow:hidden}
+    .sidebar{background:var(--surface);border-right:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column;gap:2px}
+    .nav-btn{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;border:none;background:none;color:var(--muted);font-size:14px;font-family:var(--font);width:100%;text-align:left;transition:color .15s,background .15s;border-left:3px solid transparent}
+    .nav-btn:hover{color:var(--text);background:var(--surface2)}
+    .nav-btn.active{color:var(--text);background:var(--surface2);border-left-color:var(--accent)}
+    .nav-btn .icon{font-size:16px;width:20px;text-align:center}
+    .nav-section{padding:10px 20px 4px;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:6px}
+    .main{overflow-y:auto;padding:28px 32px}
+    .panel{display:none}.panel.active{display:block}
+    h2{font-size:20px;font-weight:700;margin-bottom:20px}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:28px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s}
+    .card:hover{border-color:var(--accent)}
+    .card-img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--surface2);display:block}
+    .card-img-placeholder{width:100%;aspect-ratio:4/3;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:28px}
+    .card-body{padding:12px}
+    .card-title{font-size:14px;font-weight:600;margin-bottom:4px}
+    .card-sub{font-size:12px;color:var(--muted)}
+    .card-actions{display:flex;gap:6px;margin-top:10px}
+    .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:28px}
+    .photo-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;position:relative}
+    .photo-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--surface2)}
+    .photo-overlay{position:absolute;inset:0;background:rgba(0,0,0,.65);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity .2s}
+    .photo-card:hover .photo-overlay{opacity:1}
+    .photo-label{padding:6px 8px;font-size:11px;color:var(--muted);background:var(--surface);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px;max-width:680px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+    .form-group label{font-size:13px;font-weight:500;color:var(--muted)}
+    .form-group input,.form-group select,.form-group textarea{background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--font);font-size:14px;padding:8px 10px;outline:none;transition:border-color .15s;width:100%}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+    .form-group textarea{resize:vertical;min-height:60px}
+    .form-group select option{background:var(--surface2)}
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;border:none;transition:opacity .15s,transform .1s}
+    .btn:hover{opacity:.85}.btn:active{transform:scale(.97)}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-danger{background:var(--danger);color:#fff}
+    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+    .btn-sm{padding:5px 10px;font-size:12px}
+    .upload-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:16px}
+    .upload-zone:hover,.upload-zone.drag-over{border-color:var(--accent);background:rgba(99,102,241,.06)}
+    .upload-zone input{display:none}
+    .upload-zone .uz-icon{font-size:32px;margin-bottom:8px}
+    .upload-zone .uz-label{font-size:14px;color:var(--muted)}
+    .upload-zone .uz-label strong{color:var(--accent2)}
+    .preview-list{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+    .preview-item{position:relative;width:90px;height:90px;border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+    .preview-item img{width:100%;height:100%;object-fit:cover}
+    .preview-item .rm{position:absolute;top:2px;right:2px;background:var(--danger);border:none;color:#fff;border-radius:4px;cursor:pointer;font-size:11px;padding:1px 5px}
+    .meta-block{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px}
+    .meta-block .meta-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .meta-block .meta-thumb{width:56px;height:56px;border-radius:6px;object-fit:cover;background:var(--border)}
+    .meta-block .meta-name{font-size:13px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    #toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 20px;font-size:14px;z-index:9999;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+    #toast.show{opacity:1;transform:none}
+    #toast.ok{border-color:var(--success);color:var(--success)}
+    #toast.err{border-color:var(--danger);color:var(--danger)}
+    .empty{color:var(--muted);font-size:14px;padding:24px;text-align:center;background:var(--surface);border-radius:var(--radius);border:1px dashed var(--border)}
+    .filter-bar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+    .filter-bar label{font-size:13px;color:var(--muted)}
+    .filter-bar select{background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;padding:6px 10px;font-family:var(--font);outline:none}
+    .summary-bar{display:flex;gap:6px;font-size:13px;color:var(--muted);margin-left:auto}
+    .summary-bar span{background:var(--surface2);padding:2px 10px;border-radius:999px;border:1px solid var(--border)}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <h1>📷 Photography Admin</h1>
+    <span class="badge">Local only</span>
+    <div class="summary-bar" id="summary"></div>
+  </div>
+
+  <div class="body">
+    <nav class="sidebar">
+      <div class="nav-section">Library</div>
+      <button class="nav-btn active" data-panel="photos"><span class="icon">🖼</span> Photos</button>
+      <button class="nav-btn" data-panel="projects"><span class="icon">📁</span> Projects</button>
+      <button class="nav-btn" data-panel="collections"><span class="icon">🗂</span> Collections</button>
+      <div class="nav-section">Add New</div>
+      <button class="nav-btn" data-panel="upload"><span class="icon">⬆️</span> Upload Photos</button>
+      <button class="nav-btn" data-panel="new-project"><span class="icon">➕</span> New Project</button>
+      <button class="nav-btn" data-panel="new-collection"><span class="icon">➕</span> New Collection</button>
+    </nav>
+
+    <main class="main">
+
+      <!-- PHOTOS -->
+      <div class="panel active" id="panel-photos">
+        <h2>Photos</h2>
+        <div class="filter-bar">
+          <label>Project:</label>
+          <select id="photos-project-filter"><option value="">All projects</option></select>
+        </div>
+        <div id="photos-grid" class="photo-grid"></div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="panel" id="panel-projects">
+        <h2>Projects</h2>
+        <div class="filter-bar">
+          <label>Collection:</label>
+          <select id="projects-col-filter"><option value="">All</option></select>
+        </div>
+        <div id="projects-grid" class="card-grid"></div>
+      </div>
+
+      <!-- COLLECTIONS -->
+      <div class="panel" id="panel-collections">
+        <h2>Collections</h2>
+        <div id="collections-grid" class="card-grid"></div>
+      </div>
+
+      <!-- UPLOAD PHOTOS -->
+      <div class="panel" id="panel-upload">
+        <h2>Upload Photos</h2>
+        <div class="form-card">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Collection</label>
+              <select id="up-collection"><option value="">Select collection…</option></select>
+            </div>
+            <div class="form-group">
+              <label>Project</label>
+              <select id="up-project"><option value="">Select project…</option></select>
+            </div>
+          </div>
+
+          <div class="upload-zone" id="upload-zone">
+            <input type="file" id="file-input" accept="image/*" multiple />
+            <div class="uz-icon">📂</div>
+            <div class="uz-label"><strong>Click to choose</strong> or drag &amp; drop images here</div>
+          </div>
+          <div class="preview-list" id="preview-list"></div>
+          <div id="photo-meta-forms"></div>
+          <button class="btn btn-primary" id="upload-btn" style="margin-top:8px;width:100%;justify-content:center">⬆️ Upload &amp; Save All</button>
+        </div>
+      </div>
+
+      <!-- NEW PROJECT -->
+      <div class="panel" id="panel-new-project">
+        <h2>New Project</h2>
+        <div class="form-card">
+          <div class="form-row">
+            <div class="form-group"><label>Slug (URL key)</label><input id="np-slug" placeholder="gr86" /></div>
+            <div class="form-group"><label>Collection</label><select id="np-collection"><option value="">Select…</option></select></div>
+          </div>
+          <div class="form-group"><label>Title</label><input id="np-title" placeholder="Toyota GR86" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>Year</label><input id="np-year" placeholder="2025" /></div>
+            <div class="form-group"><label>Location</label><input id="np-location" placeholder="Troy, MI" /></div>
+          </div>
+          <div class="form-group"><label>Blurb</label><input id="np-blurb" /></div>
+          <div class="form-group"><label>Cover path (fill after uploading)</label><input id="np-cover" placeholder="images/automobile/gr86/wide-GR86.jpg" /></div>
+          <button class="btn btn-primary" id="save-project-btn">Save Project</button>
+        </div>
+      </div>
+
+      <!-- NEW COLLECTION -->
+      <div class="panel" id="panel-new-collection">
+        <h2>New Collection</h2>
+        <div class="form-card">
+          <div class="form-row">
+            <div class="form-group"><label>Slug</label><input id="nc-slug" placeholder="automotive" /></div>
+            <div class="form-group"><label>Title</label><input id="nc-title" placeholder="Automotive" /></div>
+          </div>
+          <div class="form-group"><label>Blurb</label><input id="nc-blurb" /></div>
+          <div class="form-group"><label>Cover path</label><input id="nc-cover" placeholder="images/…" /></div>
+          <button class="btn btn-primary" id="save-col-btn">Save Collection</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="admin.js"></script>
+</body>
+</html>

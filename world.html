@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>World — Andrew Nguyen Photography</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;0,800;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #05070f;
+      --surface: rgba(10,13,26,.88);
+      --border: rgba(255,255,255,.1);
+      --text: #eef0f8;
+      --muted: rgba(200,205,230,.5);
+      --accent: #c8a97e;
+      --font: 'Inter', system-ui, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5vw;
+      height: 54px;
+      background: rgba(5,7,15,.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px) saturate(1.3);
+    }
+
+    .top-nav-brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .top-nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .top-nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: rgba(200,205,230,.6);
+      text-decoration: none;
+      transition: color .18s;
+    }
+
+    .top-nav-links a:hover, .top-nav-links a.active { color: var(--text); }
+
+    /* ── GLOBE CONTAINER ── */
+    #globe-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+
+    /* ── BOTTOM BAR ── */
+    #intro-hint {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 150;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(5,7,15,.92);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(18px) saturate(1.3);
+      pointer-events: none;
+    }
+
+    #intro-hint.hide { opacity: 1; } /* keep visible always */
+
+    #intro-hint p {
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── LOCATION COUNT BADGE ── */
+    #location-count {
+      position: fixed;
+      top: 54px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 150;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      pointer-events: none;
+      text-align: center;
+      padding: 6px 14px;
+      background: rgba(5,7,15,.7);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ── SIDE PANEL ── */
+    #panel {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100%;
+      width: min(420px, 100vw);
+      z-index: 180;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      backdrop-filter: blur(24px) saturate(1.4);
+      transform: translateX(100%);
+      transition: transform .38s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #panel.open { transform: translateX(0); }
+
+    .panel-header {
+      padding: 24px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-shrink: 0;
+    }
+
+    .panel-location {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .panel-count {
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 4px;
+      letter-spacing: .08em;
+    }
+
+    .panel-close {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color .15s, border-color .15s;
+      flex-shrink: 0;
+    }
+
+    .panel-close:hover { color: var(--text); border-color: var(--text); }
+
+    .panel-photos {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 16px 32px;
+    }
+
+    .photo-item {
+      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      cursor: pointer;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .photo-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .photo-item img {
+      width: 100%;
+      aspect-ratio: 3/2;
+      object-fit: cover;
+      display: block;
+      background: rgba(255,255,255,.05);
+    }
+
+    .photo-exif {
+      padding: 14px 16px;
+    }
+
+    .photo-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .exif-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 10px;
+    }
+
+    .exif-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .exif-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .exif-value {
+      font-size: 13px;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── FULLSCREEN LIGHTBOX ── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(0,0,0,.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 88vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,.6);
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    /* ── TOOLTIP on hover ── */
+    .globe-tooltip {
+      position: fixed;
+      z-index: 160;
+      background: rgba(5,7,15,.9);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: var(--text);
+      pointer-events: none;
+      transform: translate(-50%, -130%);
+      white-space: nowrap;
+      backdrop-filter: blur(8px);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav — Home + Earth only -->
+  <nav class="top-nav">
+    <a class="top-nav-brand" href="./">Andrew Nguyen</a>
+    <div class="top-nav-links">
+      <a href="./">Home</a>
+      <a href="./world.html" class="active">🌍 Earth</a>
+    </div>
+  </nav>
+
+  <!-- Location count badge -->
+  <div id="location-count"></div>
+
+  <!-- Hint -->
+  <div id="intro-hint">
+    <p>🖱 Drag to rotate &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click a pin to view photos</p>
+  </div>
+
+  <!-- Globe canvas -->
+  <canvas id="globe-canvas" style="position:fixed;inset:0;display:block;cursor:grab"></canvas>
+
+  <!-- Tooltip -->
+  <div class="globe-tooltip" id="tooltip"></div>
+
+  <!-- Side panel -->
+  <div id="panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-location" id="panel-location-name"></div>
+        <div class="panel-count" id="panel-photo-count"></div>
+      </div>
+      <button class="panel-close" id="panel-close">✕</button>
+    </div>
+    <div class="panel-photos" id="panel-photos"></div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <button id="lightbox-close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- Three.js r160 — self-contained, no globe.gl needed -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="data.js"></script>
+  <script>
+  (function () {
+
+    /* ── 1. Build location map from PHOTOS ────────────────── */
+    const locationMap = {};
+    Object.entries(window.PHOTOS || {}).forEach(([slug, photos]) => {
+      photos.forEach(ph => {
+        const m = ph.meta || {};
+        const lat = parseFloat(m.lat), lng = parseFloat(m.lng);
+        if (isNaN(lat) || isNaN(lng)) return;
+        const key = (m.location || slug).toLowerCase().trim();
+        if (!locationMap[key]) locationMap[key] = { lat, lng, label: m.location || slug, photos: [] };
+        locationMap[key].photos.push(ph);
+      });
+    });
+    const locations = Object.values(locationMap);
+
+    /* ── 2. Three.js scene ────────────────────────────────── */
+    const W = window.innerWidth, H = window.innerHeight;
+    const canvas = document.getElementById('globe-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(W, H);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('#05070f');
+
+    const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 1000);
+    camera.position.set(0, 0, 2.8);
+
+    /* Lighting */
+    const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+    scene.add(ambient);
+    const sun = new THREE.DirectionalLight(0xffd090, 1.1);
+    sun.position.set(5, 3, 5);
+    scene.add(sun);
+
+    /* Earth sphere */
+    const GEO = new THREE.SphereGeometry(1, 64, 64);
+    const loader = new THREE.TextureLoader();
+
+    // Use locally served Earth texture (no CDN dependency)
+    const earthTex = loader.load(
+      '/assets/earth.jpg',
+      () => {},
+      undefined,
+      () => {
+        // fallback: plain blue-green sphere if texture fails
+        earthMat.color.set(0x1a4a6e);
+      }
+    );
+    const earthMat = new THREE.MeshPhongMaterial({ map: earthTex, specular: new THREE.Color(0x111122), shininess: 8 });
+    const earth = new THREE.Mesh(GEO, earthMat);
+    scene.add(earth);
+
+    /* Atmosphere glow (additive blended shell) */
+    const atmGeo = new THREE.SphereGeometry(1.025, 64, 64);
+    const atmMat = new THREE.MeshPhongMaterial({
+      color: 0x3a6fd8, transparent: true, opacity: 0.13,
+      side: THREE.FrontSide, depthWrite: false, blending: THREE.AdditiveBlending
+    });
+    scene.add(new THREE.Mesh(atmGeo, atmMat));
+
+    /* ── 3. Location pins ─────────────────────────────────── */
+    function latLngToVec3(lat, lng, r) {
+      const phi   = (90 - lat) * Math.PI / 180;
+      const theta = (lng + 180) * Math.PI / 180;
+      return new THREE.Vector3(
+        -r * Math.sin(phi) * Math.cos(theta),
+         r * Math.cos(phi),
+         r * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+
+    const pinGroup = new THREE.Group();
+    scene.add(pinGroup);
+    const pinMeshes = []; // [{mesh, location}]
+
+    locations.forEach(loc => {
+      const r = 1.018 + Math.min(loc.photos.length, 8) * 0.003;
+      const pinGeo = new THREE.SphereGeometry(0.018, 12, 12);
+      const pinMat = new THREE.MeshBasicMaterial({ color: 0xc8a97e });
+      const pin = new THREE.Mesh(pinGeo, pinMat);
+      pin.position.copy(latLngToVec3(loc.lat, loc.lng, r));
+      pin.userData = loc;
+      pinGroup.add(pin);
+      pinMeshes.push(pin);
+    });
+
+    /* ── 4. Interaction ───────────────────────────────────── */
+    let isDragging = false, autoRotate = true;
+    let prevMouse = { x: 0, y: 0 };
+    let rotY = -1.5, rotX = 0.35; // initial tilt
+    earth.rotation.y = rotY;
+    earth.rotation.x = rotX;
+    pinGroup.rotation.y = rotY;
+    pinGroup.rotation.x = rotX;
+
+    canvas.addEventListener('pointerdown', e => {
+      isDragging = true; autoRotate = false;
+      prevMouse = { x: e.clientX, y: e.clientY };
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointermove', e => {
+      if (!isDragging) { checkHover(e); return; }
+      const dx = e.clientX - prevMouse.x, dy = e.clientY - prevMouse.y;
+      rotY += dx * 0.005;
+      rotX += dy * 0.005;
+      rotX = Math.max(-1.3, Math.min(1.3, rotX));
+      earth.rotation.y = rotY; earth.rotation.x = rotX;
+      pinGroup.rotation.y = rotY; pinGroup.rotation.x = rotX;
+      prevMouse = { x: e.clientX, y: e.clientY };
+    });
+    canvas.addEventListener('pointerup', e => {
+      if (!isDragging) return;
+      isDragging = false;
+      // check if it was a click (no drag)
+      const dx = e.clientX - prevMouse.x, dy = e.clientY - prevMouse.y;
+      if (Math.abs(dx) < 3 && Math.abs(dy) < 3) handleClick(e);
+    });
+    canvas.addEventListener('wheel', e => {
+      camera.position.z = Math.max(1.4, Math.min(5, camera.position.z + e.deltaY * 0.004));
+    }, { passive: true });
+
+    /* Raycasting for hover + click */
+    const raycaster = new THREE.Raycaster();
+    const mouse2D = new THREE.Vector2();
+    const tooltip = document.getElementById('tooltip');
+    let hoveredPin = null;
+
+    function toNDC(e) {
+      mouse2D.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+      mouse2D.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    function checkHover(e) {
+      toNDC(e);
+      raycaster.setFromCamera(mouse2D, camera);
+      const hits = raycaster.intersectObjects(pinMeshes);
+      if (hits.length) {
+        const loc = hits[0].object.userData;
+        canvas.style.cursor = 'pointer';
+        tooltip.style.display = 'block';
+        tooltip.style.left = e.clientX + 'px';
+        tooltip.style.top  = e.clientY + 'px';
+        tooltip.textContent = `${loc.label}  (${loc.photos.length} photo${loc.photos.length !== 1 ? 's' : ''})`;
+        hoveredPin = hits[0].object;
+      } else {
+        canvas.style.cursor = 'grab';
+        tooltip.style.display = 'none';
+        hoveredPin = null;
+      }
+    }
+
+    function handleClick(e) {
+      toNDC(e);
+      raycaster.setFromCamera(mouse2D, camera);
+      const hits = raycaster.intersectObjects(pinMeshes);
+      if (hits.length) openPanel(hits[0].object.userData);
+    }
+
+    /* ── 5. Render loop ───────────────────────────────────── */
+    function animate() {
+      requestAnimationFrame(animate);
+      if (autoRotate && !isDragging) {
+        rotY += 0.0015;
+        earth.rotation.y = rotY;
+        pinGroup.rotation.y = rotY;
+      }
+      // pulse pins
+      const t = Date.now() * 0.002;
+      pinMeshes.forEach((pin, i) => {
+        const s = 1 + Math.sin(t + i * 1.3) * 0.18;
+        pin.scale.setScalar(s);
+      });
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      const W = window.innerWidth, H = window.innerHeight;
+      camera.aspect = W / H;
+      camera.updateProjectionMatrix();
+      renderer.setSize(W, H);
+    });
+
+    /* ── 6. Panel ─────────────────────────────────────────── */
+    const panel    = document.getElementById('panel');
+    const panelLoc = document.getElementById('panel-location-name');
+    const panelCnt = document.getElementById('panel-photo-count');
+    const panelPh  = document.getElementById('panel-photos');
+
+    document.getElementById('panel-close').addEventListener('click', () => panel.classList.remove('open'));
+
+    function openPanel(loc) {
+      panelLoc.textContent = loc.label;
+      panelCnt.textContent = `${loc.photos.length} photo${loc.photos.length !== 1 ? 's' : ''}`;
+      panelPh.innerHTML = loc.photos.map(ph => {
+        const m = ph.meta || {};
+        const fmt = d => d ? new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}) : '—';
+        return `
+          <div class="photo-item" data-src="${ph.srcLarge || ph.srcSmall}">
+            <img src="${ph.srcSmall}" alt="${ph.title||''}" loading="lazy">
+            <div class="photo-exif">
+              ${ph.title ? `<div class="photo-title">${ph.title}</div>` : ''}
+              <div class="exif-grid">
+                ${[
+                  ['Location', m.location || loc.label],
+                  ['Date',     fmt(m.date)],
+                  ['Aperture', m.aperture || '—'],
+                  ['Shutter',  m.shutter  || '—'],
+                  ['ISO',      m.iso       || '—'],
+                  ['Lens',     m.lens      || '—'],
+                ].map(([l,v]) => `
+                  <div class="exif-item">
+                    <span class="exif-label">${l}</span>
+                    <span class="exif-value">${v}</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+      panelPh.querySelectorAll('.photo-item').forEach(el =>
+        el.addEventListener('click', () => openLightbox(el.dataset.src)));
+      panel.classList.add('open');
+    }
+
+    /* ── 7. Lightbox ──────────────────────────────────────── */
+    const lb    = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src) { lbImg.src = src; lb.classList.add('open'); }
+    document.getElementById('lightbox-close').addEventListener('click', () => lb.classList.remove('open'));
+    lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { lb.classList.remove('open'); panel.classList.remove('open'); }
+    });
+
+    /* ── 8. Badge ─────────────────────────────────────────── */
+    const badge = document.getElementById('location-count');
+    badge.textContent = locations.length
+      ? `${locations.length} location${locations.length!==1?'s':''} · ${locations.reduce((s,l)=>s+l.photos.length,0)} photos`
+      : 'No location data yet — add lat/lng to photo metadata';
+
+  })();
+  </script>
+</body>
+</html>
