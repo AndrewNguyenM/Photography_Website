@@ -2,7 +2,14 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs-extra');
-const { execFile } = require('child_process');
+require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -70,44 +77,32 @@ if (!fs.existsSync(DATA_JSON)) {
 // Setup multer storage to a temp folder; we'll move files into place after metadata is known
 const upload = multer({ dest: path.join(ROOT, 'tmp_uploads') });
 
-// API: upload image file with fields: collection, project (optional), filename (optional)
+// API: upload image file — sends to Cloudinary, returns CDN URL
 app.post('/api/upload-image', upload.single('file'), async (req, res) => {
   try {
     const file = req.file;
     const collection = req.body.collection || 'uncategorized';
-    const project = req.body.project || '';
+    const project = req.body.project || 'general';
     if (!file) return res.status(400).json({ error: 'No file uploaded' });
 
-    const colDir = path.join(IMAGES_DIR, collection);
-    await fs.ensureDir(colDir);
-    const destDir = project ? path.join(colDir, project) : colDir;
-    await fs.ensureDir(destDir);
+    // Upload to Cloudinary — it handles HEIC, JPEG, PNG, WebP etc. automatically
+    const folder = `photography/${collection}${project ? '/' + project : ''}`;
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder,
+      resource_type: 'image',
+      // Auto-convert HEIC and generate optimised versions
+      format: 'jpg',
+      transformation: [{ quality: 'auto', fetch_format: 'auto' }],
+    });
 
-    // Auto-convert HEIC/HEIF → JPEG so browsers can display them
-    const isHeic = /\.(heic|heif)$/i.test(file.originalname);
-    const baseName = isHeic
-      ? file.originalname.replace(/\.(heic|heif)$/i, '.jpg')
-      : file.originalname;
-    const name = `${Date.now()}-${baseName}`;
-    const destPath = path.join(destDir, name);
+    // Clean up temp file
+    await fs.remove(file.path);
 
-    if (isHeic) {
-      // Use macOS sips for HEIC → JPEG conversion
-      await new Promise((resolve, reject) => {
-        execFile('sips', ['-s', 'format', 'jpeg', file.path, '--out', destPath], (err) => {
-          if (err) reject(err); else resolve();
-        });
-      });
-      await fs.remove(file.path);
-    } else {
-      await fs.move(file.path, destPath, { overwrite: false });
-    }
-
-    // Return path relative to site root
-    const rel = path.relative(ROOT, destPath).split(path.sep).join('/');
-    res.json({ ok: true, path: rel });
+    res.json({ ok: true, path: result.secure_url, cloudinary_id: result.public_id });
   } catch (e) {
     console.error(e);
+    // Clean up temp file on error too
+    if (req.file) await fs.remove(req.file.path).catch(() => {});
     res.status(500).json({ error: e.message });
   }
 });

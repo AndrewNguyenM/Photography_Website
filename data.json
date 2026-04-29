@@ -4,13 +4,13 @@
       "slug": "automotive",
       "title": "Automotive",
       "blurb": "Cars, bikes, and machines",
-      "cover": "images/automobile/gr86/wide-GR86.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489016/photography/automobile/gr86/wide-GR86.jpg"
     },
     {
       "slug": "lifestyle",
       "title": "Lifestyle",
       "blurb": "Places, people, and moments",
-      "cover": "images/lifestyle/detroit/DOH.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489044/photography/lifestyle/detroit/DOH.jpg"
     }
   ],
   "PROJECTS": [
@@ -21,7 +21,7 @@
       "year": "2024",
       "location": "Warren, MI",
       "blurb": "Track-ready sports car",
-      "cover": "images/automobile/gr86/wide-GR86.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489016/photography/automobile/gr86/wide-GR86.jpg"
     },
     {
       "slug": "s2000",
@@ -30,7 +30,7 @@
       "year": "2024",
       "location": "Sterling Heights, MI",
       "blurb": "High-revving roadster",
-      "cover": "images/automobile/s2000/badge.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489020/photography/automobile/s2000/badge.jpg"
     },
     {
       "slug": "yamaha-r3",
@@ -39,7 +39,7 @@
       "year": "2024",
       "location": "Sterling Heights, MI",
       "blurb": "Sport motorcycle",
-      "cover": "images/automobile/Yamaha_R3/bike.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489025/photography/automobile/Yamaha_R3/bike.jpg"
     },
     {
       "slug": "gt3rs",
@@ -48,7 +48,7 @@
       "year": "2024",
       "location": "Troy, MI",
       "blurb": "Track-focused Porsche",
-      "cover": "images/automobile/gt3rs/gt3rs.jpeg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489028/photography/automobile/gt3rs/gt3rs.jpg"
     },
     {
       "slug": "ford-gt",
@@ -57,7 +57,7 @@
       "year": "2024",
       "location": "Troy, MI",
       "blurb": "American supercar",
-      "cover": "images/automobile/ford_gt/wheel-lg.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489031/photography/automobile/ford_gt/wheel-lg.jpg"
     },
     {
       "slug": "japan",
@@ -66,7 +66,7 @@
       "year": "2026",
       "location": "Tokyo, Japan",
       "blurb": "Streets of Tokyo",
-      "cover": "images/lifestyle/japan/1777474571487-IMG_2196.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489038/photography/lifestyle/japan/1777474571487-IMG_2196.jpg"
     },
     {
       "slug": "detroit",
@@ -75,14 +75,14 @@
       "year": "2024",
       "location": "Detroit, MI",
       "blurb": "Motor City",
-      "cover": "images/lifestyle/detroit/DOH.jpg"
+      "cover": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489044/photography/lifestyle/detroit/DOH.jpg"
     }
   ],
   "PHOTOS": {
     "gr86": [
       {
-        "srcSmall": "images/automobile/gr86/wide-GR86.jpg",
-        "srcLarge": "images/automobile/gr86/wide-GR86.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489016/photography/automobile/gr86/wide-GR86.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489016/photography/automobile/gr86/wide-GR86.jpg",
         "w": 0,
         "h": 0,
         "title": "Wide GR86",
@@ -100,8 +100,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gr86/front-GR86.jpg",
-        "srcLarge": "images/automobile/gr86/front-GR86.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489053/photography/automobile/gr86/front-GR86.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489053/photography/automobile/gr86/front-GR86.jpg",
         "w": 0,
         "h": 0,
         "title": "Front GR86",
@@ -119,8 +119,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gr86/rear-GR86.jpg",
-        "srcLarge": "images/automobile/gr86/rear-GR86.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489061/photography/automobile/gr86/rear-GR86.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489061/photography/automobile/gr86/rear-GR86.jpg",
         "w": 0,
         "h": 0,
         "title": "Rear GR86",
@@ -138,8 +138,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gr86/wheel-GR86.jpg",
-        "srcLarge": "images/automobile/gr86/wheel-GR86.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489069/photography/automobile/gr86/wheel-GR86.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489069/photography/automobile/gr86/wheel-GR86.jpg",
         "w": 0,
         "h": 0,
         "title": "Wheel GR86",
@@ -157,8 +157,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gr86/gr86-lg.jpg",
-        "srcLarge": "images/automobile/gr86/gr86-lg.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489072/photography/automobile/gr86/gr86-lg.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489072/photography/automobile/gr86/gr86-lg.jpg",
         "w": 0,
         "h": 0,
         "title": "GR86",
@@ -176,8 +176,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gr86/detroit1.jpg",
-        "srcLarge": "images/automobile/gr86/detroit1.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489077/photography/automobile/gr86/detroit1.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489077/photography/automobile/gr86/detroit1.jpg",
         "w": 0,
         "h": 0,
         "title": "Detroit Auto Show 1",
@@ -195,8 +195,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gr86/detroit2.jpg",
-        "srcLarge": "images/automobile/gr86/detroit2.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489083/photography/automobile/gr86/detroit2.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489083/photography/automobile/gr86/detroit2.jpg",
         "w": 0,
         "h": 0,
         "title": "Detroit Auto Show 2",
@@ -214,8 +214,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gr86/detroit3.jpg",
-        "srcLarge": "images/automobile/gr86/detroit3.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489088/photography/automobile/gr86/detroit3.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489088/photography/automobile/gr86/detroit3.jpg",
         "w": 0,
         "h": 0,
         "title": "Detroit Auto Show 3",
@@ -233,8 +233,8 @@
         }
       },
       {
-        "srcSmall": "images/automotive/gr86/1760627923527-MAA.jpg",
-        "srcLarge": "images/automotive/gr86/1760627923527-MAA.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489093/photography/automotive/gr86/1760627923527-MAA.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489093/photography/automotive/gr86/1760627923527-MAA.jpg",
         "w": 0,
         "h": 0,
         "title": "GR86 Session 1",
@@ -252,8 +252,8 @@
         }
       },
       {
-        "srcSmall": "images/automotive/gr86/1760628076412-MAA.jpg",
-        "srcLarge": "images/automotive/gr86/1760628076412-MAA.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489097/photography/automotive/gr86/1760628076412-MAA.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489097/photography/automotive/gr86/1760628076412-MAA.jpg",
         "w": 0,
         "h": 0,
         "title": "GR86 Session 2",
@@ -271,8 +271,8 @@
         }
       },
       {
-        "srcSmall": "images/automotive/gr86/1760628078843-MAA.jpg",
-        "srcLarge": "images/automotive/gr86/1760628078843-MAA.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489101/photography/automotive/gr86/1760628078843-MAA.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489101/photography/automotive/gr86/1760628078843-MAA.jpg",
         "w": 0,
         "h": 0,
         "title": "GR86 Session 3",
@@ -290,8 +290,8 @@
         }
       },
       {
-        "srcSmall": "images/automotive/gr86/1760628172148-MAA.jpg",
-        "srcLarge": "images/automotive/gr86/1760628172148-MAA.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489106/photography/automotive/gr86/1760628172148-MAA.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489106/photography/automotive/gr86/1760628172148-MAA.jpg",
         "w": 0,
         "h": 0,
         "title": "GR86 Session 4",
@@ -311,8 +311,8 @@
     ],
     "s2000": [
       {
-        "srcSmall": "images/automobile/s2000/badge.jpg",
-        "srcLarge": "images/automobile/s2000/badge.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489020/photography/automobile/s2000/badge.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489020/photography/automobile/s2000/badge.jpg",
         "w": 0,
         "h": 0,
         "title": "S2000 Badge",
@@ -330,8 +330,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/s2000/IMG_0086-2.jpg",
-        "srcLarge": "images/automobile/s2000/IMG_0086-2.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489112/photography/automobile/s2000/IMG_0086-2.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489112/photography/automobile/s2000/IMG_0086-2.jpg",
         "w": 0,
         "h": 0,
         "title": "S2000",
@@ -349,8 +349,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/s2000/IMG_0090-2.jpg",
-        "srcLarge": "images/automobile/s2000/IMG_0090-2.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489116/photography/automobile/s2000/IMG_0090-2.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489116/photography/automobile/s2000/IMG_0090-2.jpg",
         "w": 0,
         "h": 0,
         "title": "S2000 Detail",
@@ -368,8 +368,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/s2000/wheel.jpg",
-        "srcLarge": "images/automobile/s2000/wheel.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489122/photography/automobile/s2000/wheel.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489122/photography/automobile/s2000/wheel.jpg",
         "w": 0,
         "h": 0,
         "title": "S2000 Wheel",
@@ -389,8 +389,8 @@
     ],
     "yamaha-r3": [
       {
-        "srcSmall": "images/automobile/Yamaha_R3/bike.jpg",
-        "srcLarge": "images/automobile/Yamaha_R3/bike.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489025/photography/automobile/Yamaha_R3/bike.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489025/photography/automobile/Yamaha_R3/bike.jpg",
         "w": 0,
         "h": 0,
         "title": "Yamaha R3",
@@ -408,8 +408,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/Yamaha_R3/broken.jpg",
-        "srcLarge": "images/automobile/Yamaha_R3/broken.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489129/photography/automobile/Yamaha_R3/broken.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489129/photography/automobile/Yamaha_R3/broken.jpg",
         "w": 0,
         "h": 0,
         "title": "R3 Broken",
@@ -427,8 +427,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/Yamaha_R3/moose.jpg",
-        "srcLarge": "images/automobile/Yamaha_R3/moose.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489133/photography/automobile/Yamaha_R3/moose.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489133/photography/automobile/Yamaha_R3/moose.jpg",
         "w": 0,
         "h": 0,
         "title": "R3 Moose",
@@ -448,8 +448,8 @@
     ],
     "gt3rs": [
       {
-        "srcSmall": "images/automobile/gt3rs/gt3rs.jpeg",
-        "srcLarge": "images/automobile/gt3rs/gt3rs.jpeg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489028/photography/automobile/gt3rs/gt3rs.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489028/photography/automobile/gt3rs/gt3rs.jpg",
         "w": 0,
         "h": 0,
         "title": "GT3 RS",
@@ -467,8 +467,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gt3rs/topdown-lg.jpg",
-        "srcLarge": "images/automobile/gt3rs/topdown-lg.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489135/photography/automobile/gt3rs/topdown-lg.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489135/photography/automobile/gt3rs/topdown-lg.jpg",
         "w": 0,
         "h": 0,
         "title": "GT3 RS Top Down",
@@ -486,8 +486,8 @@
         }
       },
       {
-        "srcSmall": "images/automobile/gt3rs/03-lg.jpg",
-        "srcLarge": "images/automobile/gt3rs/03-lg.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489137/photography/automobile/gt3rs/03-lg.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489137/photography/automobile/gt3rs/03-lg.jpg",
         "w": 0,
         "h": 0,
         "title": "GT3 RS 03",
@@ -507,8 +507,8 @@
     ],
     "ford-gt": [
       {
-        "srcSmall": "images/automobile/ford_gt/wheel-lg.jpg",
-        "srcLarge": "images/automobile/ford_gt/wheel-lg.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489031/photography/automobile/ford_gt/wheel-lg.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489031/photography/automobile/ford_gt/wheel-lg.jpg",
         "w": 0,
         "h": 0,
         "title": "Ford GT Wheel",
@@ -528,8 +528,8 @@
     ],
     "japan": [
       {
-        "srcSmall": "images/lifestyle/japan/1777474571487-IMG_2196.jpg",
-        "srcLarge": "images/lifestyle/japan/1777474571487-IMG_2196.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489038/photography/lifestyle/japan/1777474571487-IMG_2196.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489038/photography/lifestyle/japan/1777474571487-IMG_2196.jpg",
         "w": 0,
         "h": 0,
         "title": "Japan",
@@ -547,8 +547,8 @@
         }
       },
       {
-        "srcSmall": "images/lifestyle/japan/1777474571498-IMG_2488.jpg",
-        "srcLarge": "images/lifestyle/japan/1777474571498-IMG_2488.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489141/photography/lifestyle/japan/1777474571498-IMG_2488.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489141/photography/lifestyle/japan/1777474571498-IMG_2488.jpg",
         "w": 0,
         "h": 0,
         "title": "Japan 2",
@@ -568,8 +568,8 @@
     ],
     "detroit": [
       {
-        "srcSmall": "images/lifestyle/detroit/DOH.jpg",
-        "srcLarge": "images/lifestyle/detroit/DOH.jpg",
+        "srcSmall": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489044/photography/lifestyle/detroit/DOH.jpg",
+        "srcLarge": "https://res.cloudinary.com/dwi7tz96u/image/upload/v1777489044/photography/lifestyle/detroit/DOH.jpg",
         "w": 0,
         "h": 0,
         "title": "Detroit",
